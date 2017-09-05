@@ -1,0 +1,20 @@
+Configuration file: /home/chinac/go/src/github.com/open-falcon/falcon-plus/docs/_config.yml
+            Source: /home/chinac/go/src/github.com/open-falcon/falcon-plus/docs
+       Destination: /home/chinac/go/src/github.com/open-falcon/falcon-plus/docs/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+                    done in 0.907 seconds.
+ Auto-regeneration: enabled for '/home/chinac/go/src/github.com/open-falcon/falcon-plus/docs'
+Configuration file: /home/chinac/go/src/github.com/open-falcon/falcon-plus/docs/_config.yml
+    Server address: http://0.0.0.0:4000/
+  Server running... press ctrl-c to stop.
+      Regenerating: 1 file(s) changed at 2017-08-01 10:27:54 ...done in 0.737891111 seconds.
+      Regenerating: 1 file(s) changed at 2017-08-01 10:28:01 ...done in 1.675020697 seconds.
+[2017-08-01 10:29:24] ERROR `/favicon.ico' not found.
+[2017-08-01 13:55:17] ERROR `/(' not found.
+[2017-08-01 13:55:17] ERROR `/favicon.ico' not found.
+[2017-08-01 13:58:13] ERROR `/api/v1/user/logout' not found.
+[2017-08-01 14:23:55] ERROR `/doc/dashboard.html' not found.
+[2017-08-01 14:25:31] ERROR `/doc/dashboard.html' not found.
+[2017-08-01 14:28:17] ERROR `/doc/dashboard.html' not found.
+[2017-08-01 17:19:16] ERROR `/doc/dashboard.html' not found.
