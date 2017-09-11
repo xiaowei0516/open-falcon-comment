@@ -1,10 +1,12 @@
 package dashboard_graph
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	cutils "github.com/open-falcon/falcon-plus/common/utils"
 	h "github.com/open-falcon/falcon-plus/modules/api/app/helper"
 	m "github.com/open-falcon/falcon-plus/modules/api/app/model/dashboard"
+	//"io/ioutil"
 	"sort"
 	"strconv"
 	"strings"
@@ -83,7 +85,11 @@ type APIGraphCreateReqData struct {
 
 func DashboardGraphCreate(c *gin.Context) {
 	var inputs APIGraphCreateReqData
+	//x, _ := ioutil.ReadAll(c.Request.Body)
+	//fmt.Printf("%s", string(x))
 	if err := c.Bind(&inputs); err != nil {
+		fmt.Println("----------*************************-----------")
+		fmt.Println(err)
 		h.JSONR(c, badstatus, err)
 		return
 	}
@@ -111,7 +117,7 @@ func DashboardGraphCreate(c *gin.Context) {
 	if d.GraphType == "" {
 		d.GraphType = "h"
 	}
-
+	fmt.Println(d)
 	tx := db.Dashboard.Begin()
 	dt := tx.Table("dashboard_graph").Create(&d)
 	if dt.Error != nil {
@@ -122,6 +128,8 @@ func DashboardGraphCreate(c *gin.Context) {
 
 	var lid []int
 	dt = tx.Table("dashboard_graph").Raw("select LAST_INSERT_ID() as id").Pluck("id", &lid)
+	fmt.Println("---------------")
+	fmt.Println(dt.Error)
 	if dt.Error != nil {
 		tx.Rollback()
 		h.JSONR(c, badstatus, dt.Error)

@@ -32,6 +32,7 @@ func Collect() {
 	}
 }
 
+/*数据收集并且发送到transfer*/
 func collect(sec int64, fns []func() []*model.MetricValue) {
 	t := time.NewTicker(time.Second * time.Duration(sec)).C
 	for {

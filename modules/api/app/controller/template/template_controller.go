@@ -80,7 +80,8 @@ func GetTemplatesSimple(c *gin.Context) {
 }
 
 func GetATemplate(c *gin.Context) {
-	tplidtmp := c.Params.ByName("tpl_id")
+	//tplidtmp := c.Params.ByName("tpl_id")
+	tplidtmp := c.Param("tpl_id")
 	if tplidtmp == "" {
 		h.JSONR(c, badstatus, "tpl_id is missing")
 		return
@@ -118,6 +119,25 @@ func GetATemplate(c *gin.Context) {
 	return
 }
 
+func GetATemplateByname(c *gin.Context) {
+	tplnametmp := c.Param("name")
+	if tplnametmp == "" {
+		h.JSONR(c, badstatus, "tpl_name is missing")
+		return
+	}
+
+	var tpl f.Template
+	if dt := db.Falcon.Find(&tpl, tplnametmp); dt.Error != nil {
+		h.JSONR(c, badstatus, dt.Error)
+		return
+	}
+	h.JSONR(c, map[string]interface{}{
+		"template": tpl,
+	})
+	return
+
+}
+
 type APICreateTemplateInput struct {
 	Name     string `json:"name" binding:"required"`
 	ParentID int64  `json:"parent_id" binding:"exists"`
@@ -151,7 +171,9 @@ func CreateTemplate(c *gin.Context) {
 		h.JSONR(c, badstatus, dt.Error)
 		return
 	}
-	h.JSONR(c, "template created")
+	h.JSONR(c, map[string]interface{}{
+		"template": template,
+	})
 	return
 }
 

@@ -206,7 +206,7 @@ func sendEventIfNeed(historyData []*model.HistoryData, isTriggered bool, now int
 	/*获取上一次的event，用于判断是否连续触发告警*/
 	lastEvent, exists := g.LastEvents.Get(event.Id)
 	/*是否触发*/
-	if isTriggered {   
+	if isTriggered {
 		event.Status = "PROBLEM" /*status 有两个值 PROBLEM OK*/
 
 		/*上次的event不存在或者上次的status为OK*/
@@ -230,9 +230,9 @@ func sendEventIfNeed(historyData []*model.HistoryData, isTriggered bool, now int
 		}
 
 		/*
-  timestamp         12:01  12.02  12.03 12.04  12.05  12.06
-  cpu.idle           0.1     0.2   0.3   0.4     0.3   0.4 
-        */
+		  timestamp         12:01  12.02  12.03 12.04  12.05  12.06
+		  cpu.idle           0.1     0.2   0.3   0.4     0.3   0.4
+		*/
 		if historyData[len(historyData)-1].Timestamp <= lastEvent.EventTime {
 			// 产生过报警的点，就不能再使用来判断了，否则容易出现一分钟报一次的情况
 			// 只需要拿最后一个historyData来做判断即可，因为它的时间最老

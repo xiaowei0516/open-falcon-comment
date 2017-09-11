@@ -24,6 +24,7 @@ func Routes(r *gin.Engine) {
 	tmpr.DELETE("/:tpl_id", DeleteTemplate)
 	tmpr.POST("/action", CreateActionToTmplate)
 	tmpr.PUT("/action", UpdateActionToTmplate)
+	//tmpr.GET("/name/:name", GetATemplateByname)
 
 	actr := r.Group("/api/v1/action")
 	actr.GET("/:act_id", GetActionByID)

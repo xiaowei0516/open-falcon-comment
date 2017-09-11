@@ -63,7 +63,7 @@ func Start() {
 // 将数据 打入 某个Judge的发送缓存队列, 具体是哪一个Judge 由一致性哈希 决定
 func Push2JudgeSendQueue(items []*cmodel.MetaData) {
 	for _, item := range items {
-		pk := item.PK()
+		pk := item.PK() /*保证同一个机器同一个指标的数据打到同一个node*/
 		node, err := JudgeNodeRing.GetNode(pk)
 		if err != nil {
 			log.Println("E:", err)

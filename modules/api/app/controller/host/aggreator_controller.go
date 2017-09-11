@@ -100,18 +100,18 @@ func CreateAggregator(c *gin.Context) {
 		h.JSONR(c, badstatus, fmt.Sprintf("binding error: %v", err))
 		return
 	}
-	user, _ := h.GetUser(c)
-	if !user.IsAdmin() {
-		hostgroup := f.HostGroup{ID: inputs.GrpId}
-		if dt := db.Falcon.Find(&hostgroup); dt.Error != nil {
-			h.JSONR(c, expecstatus, fmt.Sprintf("find hostgroup error: %v", dt.Error.Error()))
-			return
-		}
-		if hostgroup.CreateUser != user.Name {
-			h.JSONR(c, badstatus, "You don't have permission!")
-			return
-		}
-	}
+	//user, _ := h.GetUser(c)
+	//if !user.IsAdmin() {
+	//	hostgroup := f.HostGroup{ID: inputs.GrpId}
+	//	if dt := db.Falcon.Find(&hostgroup); dt.Error != nil {
+	//		h.JSONR(c, expecstatus, fmt.Sprintf("find hostgroup error: %v", dt.Error.Error()))
+	//		return
+	//	}
+	//	if hostgroup.CreateUser != user.Name {
+	//		h.JSONR(c, badstatus, "You don't have permission!")
+	//		return
+	//	}
+	//}
 	agg := f.Cluster{
 		GrpId:       inputs.GrpId,
 		Numerator:   inputs.Numerator,
@@ -121,7 +121,7 @@ func CreateAggregator(c *gin.Context) {
 		Tags:        inputs.Tags,
 		DsType:      "GAUGE",
 		Step:        inputs.Step,
-		Creator:     user.Name}
+		Creator:     "root"}
 	if dt := db.Falcon.Create(&agg); dt.Error != nil {
 		h.JSONR(c, expecstatus, fmt.Sprintf("create aggregator got error: %v", dt.Error.Error()))
 		return
@@ -152,19 +152,19 @@ func UpdateAggregator(c *gin.Context) {
 		h.JSONR(c, expecstatus, dt.Error)
 		return
 	}
-	user, _ := h.GetUser(c)
-	if !user.IsAdmin() {
-		hostgroup := f.HostGroup{ID: aggregator.GrpId}
-		if dt := db.Falcon.Find(&hostgroup); dt.Error != nil {
-			h.JSONR(c, expecstatus, fmt.Sprintf("find hostgroup got error: %v", dt.Error.Error()))
-			return
-		}
-		//only admin & aggregator creator can update it
-		if hostgroup.CreateUser != user.Name && aggregator.Creator != user.Name {
-			h.JSONR(c, badstatus, "You don't have permission!")
-			return
-		}
-	}
+	//user, _ := h.GetUser(c)
+	//if !user.IsAdmin() {
+	//	hostgroup := f.HostGroup{ID: aggregator.GrpId}
+	//	if dt := db.Falcon.Find(&hostgroup); dt.Error != nil {
+	//		h.JSONR(c, expecstatus, fmt.Sprintf("find hostgroup got error: %v", dt.Error.Error()))
+	//		return
+	//	}
+	//	//only admin & aggregator creator can update it
+	//	if hostgroup.CreateUser != user.Name && aggregator.Creator != user.Name {
+	//		h.JSONR(c, badstatus, "You don't have permission!")
+	//		return
+	//	}
+	//}
 	uaggregator := map[string]interface{}{
 		"Numerator":   inputs.Numerator,
 		"Denominator": inputs.Denominator,
@@ -197,18 +197,18 @@ func DeleteAggregator(c *gin.Context) {
 		h.JSONR(c, expecstatus, fmt.Sprintf("find aggregator got error: %v", dt.Error.Error()))
 		return
 	}
-	user, _ := h.GetUser(c)
-	if !user.IsAdmin() {
-		hostgroup := f.HostGroup{ID: aggregator.GrpId}
-		if dt := db.Falcon.Find(&hostgroup); dt.Error != nil {
-			h.JSONR(c, expecstatus, fmt.Sprintf("find hostgroup got error: %v", dt.Error.Error()))
-			return
-		}
-		if hostgroup.CreateUser != user.Name {
-			h.JSONR(c, badstatus, "You don't have permission!")
-			return
-		}
-	}
+	//user, _ := h.GetUser(c)
+	//if !user.IsAdmin() {
+	//	hostgroup := f.HostGroup{ID: aggregator.GrpId}
+	//	if dt := db.Falcon.Find(&hostgroup); dt.Error != nil {
+	//		h.JSONR(c, expecstatus, fmt.Sprintf("find hostgroup got error: %v", dt.Error.Error()))
+	//		return
+	//	}
+	//	if hostgroup.CreateUser != user.Name {
+	//		h.JSONR(c, badstatus, "You don't have permission!")
+	//		return
+	//	}
+	//}
 
 	if dt := db.Falcon.Table("cluster").Where("id = ?", aggID).Delete(&aggregator); dt.Error != nil {
 		h.JSONR(c, expecstatus, fmt.Sprintf("delete aggregator got error: %v", dt.Error))

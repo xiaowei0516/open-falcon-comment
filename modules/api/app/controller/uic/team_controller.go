@@ -106,7 +106,7 @@ func CreateTeam(c *gin.Context) {
 	team := uic.Team{
 		Name:    cteam.Name,
 		Resume:  cteam.Resume,
-		Creator: 1,
+		Creator: 0,
 	}
 	dt := db.Uic.Table("team").Create(&team)
 	if dt.Error != nil {
